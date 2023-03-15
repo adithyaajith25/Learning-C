@@ -1,0 +1,251 @@
+*********************************************************************************************
+NAME		: Adithya Ajith								DATE	:
+ROLL NO	: 5    
+						DOUBLE ENDED QUEUE
+*********************************************************************************************
+#include <stdio.h>
+void push(int);
+void pop();
+void inject(int);
+void eject();
+void display();
+
+int A[20],front=-1,rear=-1,size=10;;
+int main(){
+	int i,x,y;
+	while(i!=-10){
+		printf("Enter\n1-push\n2-pop\n3-inject\n4-eject\n5-display\nAll other values-END-");
+		scanf("%d",&i);
+		switch(i){
+			case 1:
+				printf("Enter item-");
+				scanf("%d",&x);
+				push(x);
+				printf("\n");
+				break;
+			case 2:
+				pop();
+				printf("\n");;
+				break;
+			case 3:
+				printf("Enter item-");
+				scanf("%d",&x);
+				inject(x);
+				printf("\n");
+				break;
+			case 4:
+				eject();
+				printf("\n");
+				break;
+			case 5:
+				display();
+				printf("\n\n");
+				break;
+			default: 
+				printf("PROGRAM END\n");
+				i=-10;
+		}
+	}
+}
+
+void push(int item){
+	if (front==0 && rear==size-1)
+		printf("Deque is full\n");
+	
+	else if(front==-1 && rear==-1){
+		front=0; rear=0;
+		A[front]=item;
+	}
+	else if(front>0){
+		front--;
+		A[front]=item;
+	}
+	else{
+		int i=rear;
+		for(i;i>=front;i--)
+			A[i+1]=A[i];
+		A[front]=item;
+		rear++;
+	}
+}
+
+void pop(){
+	if (front==-1 && rear==-1)
+		printf("Deque is empty\n");
+	else if(rear==front){
+		printf("%d\n",A[front]);
+		front=rear=-1;
+	}
+	else{
+		printf("popped item is%d\n\n",A[front]);
+		front++;
+	}
+}
+
+void inject(int item){
+	if (front==0 && rear==size-1)
+		printf("Deque is full\n");
+	
+	else if(front==-1 && rear==-1){
+		front=0; rear=0;
+		A[front]=item;
+	}
+	else if(rear<size-1){
+		rear++;
+		A[rear]=item;
+	}
+	else{
+		int i=front;
+		for(i;i<=rear;i++)
+			A[i-1]=A[i];
+		A[rear]=item;
+		front--;
+	}
+}
+
+void eject(){
+	if (front==-1 && rear==-1)
+		printf("Deque is empty\n");
+	else if(rear==front){
+		printf("%d\n",A[front]);
+		front=rear=-1;
+	}
+	else{
+		printf("popped item is%d\n\n",A[rear]);
+		rear--;
+	}
+}
+
+
+void display(){
+	if (front==-1 && rear==-1)
+		printf("Queue is empty");
+	else{
+		for(int i=front;i<=rear;i++)
+			printf("%d\t",A[i]);
+	}
+}
+			
+			       
+*********************************************************************************************
+OUTPUT
+*********************************************************************************************
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-1
+Enter item-1
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-3
+Enter item-2
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-1
+Enter item-3
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-3
+Enter item-4
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-2
+popped item is3
+
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-4
+popped item is4
+
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-5
+1       2
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-2
+popped item is1
+
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-4
+2
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-4
+Deque is empty
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-4
+Deque is empty
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-5
+Queue is empty
+
+Enter
+1-push
+2-pop
+3-inject
+4-eject
+5-display
+All other values-END-7
+PROGRAM END

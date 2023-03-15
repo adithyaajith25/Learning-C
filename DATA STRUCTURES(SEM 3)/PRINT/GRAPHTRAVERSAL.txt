@@ -1,0 +1,163 @@
+***************************************************
+NAME	: Adithya Ajith			CLASS	: S3 CSE-B
+ROLL NO	: 5    				DATE	: 15/12/2022
+	
+		GRAPH TRAVERSAL : BFS AND DFS
+***************************************************
+#include <stdio.h>
+#include <stdlib.h>
+int Adj[10][10],n,A[10];
+int build(){
+	printf("Enter the number of vertices- ");
+	scanf("%d",&n);
+	printf("---ZERO CANNOT BE A VERTEX---\n");
+	for (int i=0;i<n;i++){
+		printf("Enter element %d - ",i);
+		scanf("%d",&A[i]);
+	}		
+		
+	for (int i=0;i<n;i++){
+		int k=1;
+		while(k!=0){
+			printf("Does %d have adjacent vertex?(1/0)",A[i]);
+			scanf("%d",&k);
+			if(k==1){
+				int v;
+				printf("Enter the VERTEX- ");
+				scanf("%d",&v);
+				for(int j=0;j<n;j++){
+					if(A[j]==v){
+						Adj[i][j]=1;
+					}
+				}/*
+				for(int j=0;j<n;j++){
+					if(Adj[i][j]!=1)
+						Adj[i][j]=0;
+				}*/
+			}
+			else{
+				k=0;
+			}
+		}
+	}
+	return n;			
+
+}
+
+int visitcheck(int item,int visit[11]){
+	int flag=0;
+	for(int i=0;visit[i]!=0;i++){
+		if(visit[i]==item){
+			flag=1;
+			break;
+		}
+	}
+	return flag;
+}
+
+void dfs(int n){
+	int B[11],visit1[11]={0},i=0;
+	B[0]=A[0];	
+	int top=0;
+	while(top!=-1){
+		int a=B[top];
+		top--;
+		int x=visitcheck(a,visit1);
+		if(x==0){
+			printf("%d ",a);
+			visit1[i]=a;	i++;
+			for(int j=0;j<n;j++){
+				if(A[j]==a){
+					for(int k=0;k<n;k++){
+						int z=visitcheck(A[k],visit1);
+						if(Adj[j][k]==1 && z==0){
+							top++;
+							B[top]=A[k];
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void bfs(int n){
+	int B[11],visit2[11]={0},i=0;
+	B[0]=A[0];	
+	int front=0,rear=0;
+	while(front<=rear){
+		int a=B[front];
+		front++;
+		int x=visitcheck(a,visit2);
+		if(x==0){
+			printf("%d ",a);
+			visit2[i]=a;	i++;
+			for(int j=0;j<n;j++){
+				if(A[j]==a){
+					for(int k=0;k<n;k++){
+						int z=visitcheck(A[k],visit2);
+						if(Adj[j][k]==1 && z==0){
+							rear++;
+							B[rear]=A[k];
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void dispm(int A[50][50],int n){				//display
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++)
+			printf("  %d  ",Adj[i][j]);
+		printf("\n");
+	}
+}
+
+int main(){
+	int n=build();
+	dispm(Adj,n);
+	printf("\n dfs : ");
+	dfs(n);
+	printf("\n bfs : ");
+	bfs(n);
+	printf("\n");
+	return 0;
+}
+
+				
+			       
+***************************************************
+				OUTPUT
+***************************************************
+Enter the number of vertices- 5
+---ZERO CANNOT BE A VERTEX---
+Enter element 0 - 1
+Enter element 1 - 2
+Enter element 2 - 3
+Enter element 3 - 4
+Enter element 4 - 5
+Does 1 have adjacent vertex?(1/0)1
+Enter the VERTEX- 2
+Does 1 have adjacent vertex?(1/0)1
+Enter the VERTEX- 3
+Does 1 have adjacent vertex?(1/0)1
+Enter the VERTEX- 4
+Does 1 have adjacent vertex?(1/0)0
+Does 2 have adjacent vertex?(1/0)1
+Enter the VERTEX- 3
+Does 2 have adjacent vertex?(1/0)0
+Does 3 have adjacent vertex?(1/0)1
+Enter the VERTEX- 5
+Does 3 have adjacent vertex?(1/0)0
+Does 4 have adjacent vertex?(1/0)0
+Does 5 have adjacent vertex?(1/0)0
+  0    1    1    1    0
+  0    0    1    0    0
+  0    0    0    0    1
+  0    0    0    0    0
+  0    0    0    0    0
+
+ dfs : 1 4 3 5 2
+ bfs : 1 2 3 4 5

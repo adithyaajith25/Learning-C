@@ -1,0 +1,94 @@
+***************************************************
+NAME		: Adithya Ajith			CLASS	:S3 CSE-B
+ROLL NO	: 5    				DATE	: 06/12/2022
+	
+		BINARY TREE USING LINKED LIST
+***************************************************
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+	struct node *lchild;
+	int data;
+	struct node *rchild;
+};
+struct node *root=NULL;
+void build_tree(struct node **ptr, int item){
+	struct node *new=(struct node*)malloc(sizeof(struct node));
+	new->data=item;
+	
+	printf("Does the node %d have lCHILD? (1/0)",new->data);
+	int i=0;
+	scanf("%d",&i);
+	int item1;
+	if (i==1){
+		printf("Enter DATA - ");
+		scanf("%d",&item1);
+		build_tree(&(new->lchild),item1);
+	}
+	i=0;	item1=0; 
+	printf("Does the node %d have RCHILD? (1/0)",new->data);
+	scanf("%d",&i);
+	if (i==1){
+		printf("Enter DATA - ");
+		scanf("%d",&item1);
+		build_tree(&(new->rchild),item1);
+	}
+	*ptr=new;
+}
+
+void inorder(struct node **ptr){
+	struct node *ptr2=*ptr;
+	if(ptr2!=NULL){
+		inorder(&ptr2->lchild);
+		printf("%d ",ptr2->data);
+		inorder(&ptr2->rchild);
+	}
+}
+
+void preorder(struct node **ptr){
+	struct node *ptr2=*ptr;
+	if(ptr2!=NULL){
+        printf("%d ",ptr2->data);
+		preorder(&ptr2->lchild);
+		preorder(&ptr2->rchild);
+	}
+}
+
+void postorder(struct node **ptr){
+	struct node *ptr2=*ptr;
+	if(ptr2!=NULL){
+		postorder(&ptr2->lchild);
+		postorder(&ptr2->rchild);
+        printf("%d ",ptr2->data);
+	}
+}
+
+int main(){
+	printf("Enter root node data - ");
+	int rootd;
+	scanf("%d",&rootd);
+	build_tree(&root,rootd);
+	printf("inorder-");
+	inorder(&root);
+    printf("preorder-");
+	preorder(&root);
+    printf("postorder-");
+	postorder(&root);
+
+}
+				
+			       
+***************************************************
+				OUTPUT
+***************************************************
+Enter root node data - 1
+Does the node 1 have lCHILD? (1/0)1
+Enter DATA - 2
+Does the node 2 have lCHILD? (1/0)0
+Does the node 2 have RCHILD? (1/0)0
+Does the node 1 have RCHILD? (1/0)1
+Enter DATA - 3
+Does the node 3 have lCHILD? (1/0)0
+Does the node 3 have RCHILD? (1/0)0
+inorder-2 1 3 preorder-1 2 3 postorder-2 3 1 

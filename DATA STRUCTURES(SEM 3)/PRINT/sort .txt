@@ -1,0 +1,332 @@
+***************************************************
+NAME	: Adithya Ajith			CLASS	: S3 CSE-B
+ROLL NO	: 5    				DATE	: 05/01/2023
+			SORTING
+***************************************************
+#include<stdio.h>
+
+int a[50],i,j,n,temp;
+int ch;
+void bubble() {
+    
+
+   for(i=0;i<n;i++) {
+     for(j=0;j<n-i;j++)
+     {
+     if(a[j]>a[j+1])
+     {
+       temp=a[j];
+       a[j]=a[j+1];
+       a[j+1]=temp;
+      }
+     }
+    }
+    printf("elements:");
+   for(i=1;i<=n;i++) {
+      printf("%d \t",a[i]);
+      }
+     }
+     
+   void selection() {
+    for(i=0;i<=n-2;i++) {
+     for(j=i+1;j<=n-1;j++) {
+       if(a[i]>a[j]) {
+          temp=a[i];
+          a[i]=a[j];
+          a[j]=temp;
+          }
+         }
+        }
+      printf("elements:");
+   for(i=0;i<n;i++) {
+      printf("%d \t",a[i]);
+      }
+     }
+     
+     void insertion() {
+       for(i=1;i<n;i++)
+       {
+        for(j=i-1;j>=0;j--) {
+          if(a[j]>a[i])
+          {
+            temp=a[j];
+            a[j]=a[i];
+            a[i]=temp;
+            }
+           }
+          }
+          printf("elements:");
+   for(i=0;i<n;i++) {
+      printf("%d \t",a[i]);
+      }
+     } 
+          
+    void merge(int low,int mid,int high) {
+  
+  int i,j,k,b[20];
+    i=low;j=mid+1;k=0;
+    while(i<=mid && j<=high) {
+     if(a[j]> a[i]) {
+      b[k]=a[i];
+      i++;k++; }
+      else {
+       b[k]=a[j];
+       j++;k++; }
+       }
+      while(i<=mid) {
+       b[k]=a[i];
+      i++;k++; }
+      while(j<=high) {
+      b[k]=a[j];
+       j++;k++; }
+       
+      for(i=high;i>=low;i--) {
+      k--;
+      a[i]=b[k];
+      }
+       
+    }
+                   
+    void mergesort(int low,int high) {
+    
+   if(low<high) {
+  int mid;
+  mid=((low+high)/2);
+   mergesort(low,mid);
+   mergesort(mid+1,high);
+   merge(low,mid,high);
+   }
+  }
+ 
+  int part(int low,int high) {
+   int i,j,pivot;
+   pivot=a[low]; i=low,j=high;
+   while(1){
+    while(a[i]<pivot && a[i]!=pivot) {
+      i++;
+      }
+     while(a[j]>pivot && a[j]!=pivot) {
+      j--;
+      } 
+     if(i<j) {
+          temp=a[i];
+          a[i]=a[j];
+          a[j]=temp;
+          }
+   else 
+     return j;
+     }
+     
+    }
+   
+    void quick(int low,int high) {
+  if(low<high) {
+    int p;
+    p=part(low,high);
+    quick(low,p-1);
+    quick(p+1,high);
+    }
+    
+   }
+   
+   
+   void swap(int* a, int* b)
+{
+ 
+    int temp = *a;
+ 
+    *a = *b;
+ 
+    *b = temp;
+}
+ 
+
+void heapify(int a[], int n, int i)
+{
+    
+    int largest = i;
+ 
+   
+    int left = 2 * i + 1;
+ 
+   
+    int right = 2 * i + 2;
+ 
+    
+    if (left < n && a[left] > a[largest])
+ 
+        largest = left;
+ 
+   
+    if (right < n && a[right] > a[largest])
+ 
+        largest = right;
+ 
+    
+    if (largest != i) {
+ 
+        swap(&a[i], &a[largest]);
+       heapify(a, n, largest);
+    }
+}
+ 
+
+void heapSort(int a[], int n)
+{
+ for (int i = n / 2 - 1; i >= 0; i--)
+     heapify(a, n, i);
+  for (int i = n - 1; i >= 0; i--) {
+ 
+        swap(&a[0], &a[i]);
+      heapify(a, i, 0);
+    }
+}
+ 
+    void main() {
+    
+     
+      do {
+      printf("\nEnter the choice:\n1Bubble Sort\n2Selection Sort\n3.Insertion Sort\n4.Mergesort\n5.Quick Sort\n6.heap Sort\n7.exit\n");
+      scanf("%d",&ch);
+      
+      switch(ch) {
+      case 1: printf("enter the size:");
+      scanf("%d",&n);
+      printf("enter the elements:");
+       for(i=0;i<n;i++) {
+      scanf("%d",&a[i]);
+      }
+      bubble();
+      break;
+      
+      case 2: printf("enter the size:");
+      scanf("%d",&n);
+      printf("enter the elements:");
+       for(i=0;i<n;i++) {
+      scanf("%d",&a[i]);
+      }
+      selection();
+      break;
+      
+      case 3: printf("enter the size:");
+      scanf("%d",&n);
+      printf("enter the elements:");
+       for(i=0;i<n;i++) {
+      scanf("%d",&a[i]);
+      }
+      insertion();
+      break;
+      
+      case 4: printf("enter the size:");
+      scanf("%d",&n);
+      printf("enter the elements:");
+       for(i=0;i<n;i++) {
+      scanf("%d",&a[i]);
+      }
+      mergesort(0,n-1);
+      printf("elements:");
+   for(i=0;i<n;i++) {
+      printf("%d \t",a[i]);
+     }
+      break;
+      
+      case 5: printf("enter the size:");
+      scanf("%d",&n);
+      printf("enter the elements:");
+       for(i=0;i<n;i++) {
+      scanf("%d",&a[i]);
+      }
+       quick(0,n-1);
+       printf("elements:");
+   for(i=0;i<n;i++) {
+      printf("%d \t",a[i]);
+     }
+       break;
+       
+      case 6: printf("enter the size:");
+      scanf("%d",&n);
+      printf("enter the elements:");
+       for(i=0;i<n;i++) {
+      scanf("%d",&a[i]);
+      }
+        heapSort(a,n);
+         printf("elements:");
+   for(i=0;i<n;i++) {
+      printf("%d \t",a[i]);
+     }
+        break;
+    
+       
+      case 7:
+          break;
+     }
+    }
+     while(ch!=7);
+     }
+***************************************************
+			OUTPUT
+***************************************************
+ Enter the choice:
+1Bubble Sort
+2Selection Sort
+3.Insertion Sort
+4.Mergesort
+5.Quick Sort
+6.heap Sort
+7.exit
+1
+enter the size:5
+enter the elements:121
+15
+46
+84
+7
+elements:7 	15 	46 	84 	121 	
+Enter the choice:
+1Bubble Sort
+2Selection Sort
+3.Insertion Sort
+4.Mergesort
+5.Quick Sort
+6.heap Sort
+7.exit
+2
+enter the size:5
+enter the elements:15
+64
+887
+16
+5
+elements:5 	15 	16 	64 	887 	
+Enter the choice:
+1Bubble Sort
+2Selection Sort
+3.Insertion Sort
+4.Mergesort
+5.Quick Sort
+6.heap Sort
+7.exit
+3
+enter the size:5
+enter the elements:12
+45
+87
+5
+6
+elements:12 	45 	5 	6 	87 	
+Enter the choice:
+1Bubble Sort
+2Selection Sort
+3.Insertion Sort
+4.Mergesort
+5.Quick Sort
+6.heap Sort
+7.exit
+4
+enter the size:5
+enter the elements:13
+54
+48
+6
+5
+elements:5 	6 	13 	48 	54 	

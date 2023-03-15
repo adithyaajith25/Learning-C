@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct poly{
+	int coeff;
+	int expo;
+	struct poly *link;
+};
+struct poly *phead=NULL;
+struct poly *qhead=NULL;
+struct poly *rhead=NULL;
+struct poly MultPoly(struct poly **phead, struct poly **qhead){
+	struct poly *p=*phead;
+	struct poly *q=*qhead;
+	struct poly *r=rhead;
+	struct poly *prev=NULL;
+	while(p!=NULL){
+		while(q!=NULL){
+			struct poly *new=(struct poly*)malloc(sizeof(struct poly));
+			new->link=NULL;
+			new->coeff=p->coeff*q->coeff;
+			new->expo=p->expo+q->expo;
+			if(rhead==NULL){
+				rhead=new;
+				r=new;
+			}
+			else{
+				r->link=new;
+				r=r->link;
+			}
+            q=q->link;
+		}
+		p=p->link;
+		q=*qhead;
+	}
+	p=rhead;
+	while(p!=NULL){
+		prev=p;
+		q=p->link;
+		while(q!=NULL){
+			if((p->expo)==(q->expo)){
+				p->coeff=p->coeff+q->coeff;
+				prev->link=q->link;
+				free(q);
+				q=prev->link;
+			}
+			else{
+				prev=q;
+				q=q->link;
+			}
+		}
+		p=p->link;
+		
+	}
+}
+		
+		
+
+void readpoly(int n, struct poly **head){
+
+	for(int i=0;i<n;i++){
+		struct poly *new=(struct poly*)malloc(sizeof(struct poly));
+		printf("Enter coeff and expo= ");
+		scanf("%d %d",&new->coeff,&new->expo);
+		new->link=NULL;
+		
+		if(*head==NULL){
+			*head=new;
+		}
+		else{
+			struct poly *ptr=*head;
+			while(ptr->link!=NULL)
+				ptr=ptr->link;
+			ptr->link=new;
+		}
+	}
+}
+void display(struct poly **head){
+	if(head==NULL){
+		printf("EMPTY LIST FOUND\n");
+	}
+	else{
+		struct poly *ptr=*head;
+		while(ptr!=NULL){
+			printf("%d x X^%d\t",ptr->coeff,ptr->expo);
+			if(ptr->link!=NULL){
+				printf("+\t");
+			}
+			ptr=ptr->link;
+			
+		}
+	printf("\n");
+	}
+}
+
+int main(){
+	printf("Enter the no of terms for A and B respectively = ");
+	int n,m;
+	scanf("%d %d",&n,&m);
+	printf("A---\n");
+	readpoly(n,&phead);
+	display(&phead);
+	printf("B---\n");
+	readpoly(m,&qhead);
+	display(&qhead);
+	printf("product = ");
+	MultPoly(&phead,&qhead);
+	display(&rhead);
+	return 0;
+}
+		

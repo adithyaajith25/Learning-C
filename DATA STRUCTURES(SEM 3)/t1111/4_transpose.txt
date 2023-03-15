@@ -1,0 +1,150 @@
+*********************************************************************************************
+NAME		: Adithya Ajith								DATE	:
+ROLL NO	: 5    
+					SPARSE MATRIX TRANSPOSE	
+*********************************************************************************************
+#include <stdio.h>
+void readmatrix(int[][50],int,int);
+void dispm(int[][50],int,int); 
+int tup(int[][50],int[][50],int,int);
+void tpose(int[][50],int[][50],int);
+
+
+int main(){
+	int A[20][50],T[20][50],R[20][50],m,n;
+	printf("Enter the size of row and column: ");
+	scanf("%d %d",&m,&n);
+	readmatrix(A,m,n);
+	dispm(A,m,n);
+	printf("\n");
+	int k=tup(A,T,m,n);
+	dispm(T,k,3);
+	printf("Transpose:-\n");
+	tpose(T,R,k);
+	dispm(R,k,3);
+	printf("\n");
+	
+}
+
+
+void readmatrix(int A[50][50],int m,int n){
+	for(int i=0;i<m;i++){
+		for(int j=0;j<n;j++){
+			printf("Enter element: ");
+			scanf("%d",&A[i][j]);
+		}
+	}
+}
+
+void dispm(int A[50][50],int m,int n){
+	for(int i=0;i<m;i++){
+		for(int j=0;j<n;j++)
+			printf("\t%d\t",A[i][j]);
+		printf("\n");
+	}
+}
+
+int tup(int A[][50],int B[][50],int m,int n){
+	B[0][0]=m;
+	B[0][1]=n;
+	int k=1;
+	for(int i=0;i<m;i++){
+		for(int j=0;j<n;j++){
+			if(A[i][j]!=0){
+				B[k][0]=i;
+				B[k][1]=j;
+				B[k][2]=A[i][j];
+				k++;
+			}
+		}
+	}
+	B[0][2]=k-1;
+	return k;
+	
+}
+
+void tpose(int A[][50], int B[][50],int m){
+	B[0][0]=A[0][0];
+	B[0][1]=A[0][1];
+	
+	int k=1,l=1;
+	B[0][2]=m-1;
+	for(int i=0;i<A[0][0];i++){
+        k=1;
+		for(int j=0;j<A[0][2];j++){
+			if(A[k][1]==i){
+				B[l][0]=i;
+				B[l][1]=A[k][0];
+				B[l][2]=A[k][2];
+				l++;
+			}
+            k++;
+		}
+	}
+}
+
+*********************************************************************************************
+OUTPUT
+*********************************************************************************************
+Enter the size of row and column: 3 3
+Enter element: 1
+Enter element: 2
+Enter element: 3
+Enter element: 0
+Enter element: 0
+Enter element: 0
+Enter element: 0
+Enter element: 0
+Enter element: 4
+        1               2               3
+        0               0               0
+        0               0               4
+
+        3               3               4
+        0               0               1
+        0               1               2
+        0               2               3
+        2               2               4
+Transpose:-
+        3               3               4
+        0               0               1
+        1               1               2
+        2               2               3
+        2               3               4
+
+PS C:\Users\ADITHYA>  & 'c:\Users\ADITHYA\.vscode\extensions\ms-vscode.cpptools-1.12.4-win32-x64\debugAdapters\bin\WindowsDebugLauncher.exe' '--stdin=Microsoft-MIEngine-In-vkidupdb.zu1' '--stdout=Microsoft-MIEngine-Out-1dr0tzxh.o2t' '--stderr=Microsoft-MIEngine-Error-12itjche.zq5' '--pid=Microsoft-MIEngine-Pid-t1ipl41q.j41' '--dbgExe=C:\msys64\mingw64\bin\gdb.exe' '--interpreter=mi' 
+Enter the size of row and column: 3 3
+Enter element: 1
+Enter element: 2
+Enter element: 3
+Enter element: 4
+Enter element: 5
+Enter element: 6
+Enter element: 7
+Enter element: 8
+Enter element: 9
+        1               2               3
+        4               5               6
+        7               8               9
+
+        3               3               9
+        0               0               1
+        0               1               2
+        0               2               3
+        1               0               4
+        1               1               5
+        1               2               6
+        2               0               7
+        2               1               8
+        2               2               9
+Transpose:-
+        3               3               9
+        0               0               1
+        0               1               4
+        0               2               7
+        1               0               2
+        1               1               5
+        1               2               8
+        2               0               3
+        2               1               6
+        2               2               9

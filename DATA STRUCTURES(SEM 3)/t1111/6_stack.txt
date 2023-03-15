@@ -1,0 +1,213 @@
+*********************************************************************************************
+NAME		: Adithya Ajith								DATE	:
+ROLL NO	: 5    
+					STACK
+*********************************************************************************************
+#include<stdio.h>
+void push1(int);
+void pop();
+void display();
+void status();
+int A[10],size=10,top=-1;
+
+int main(){
+	int i=1,a;
+	while(i!=0){
+		printf("Enter:-\n1)Push,\n2)Pop,\n3)Display,\n4)Status,\n0)Exit: ");
+		scanf("%d",&i);
+		switch(i){
+			case 0:
+				break;
+			case 1:
+				printf("Enter element: ");
+				scanf("%d",&a);
+				push1(a);
+				printf("***************\n\n");
+				break;
+			case 2:
+				pop();
+				printf("***************\n\n");
+				break;
+			case 3:
+				display();
+				printf("***************\n\n");
+				break;
+			case 4:
+				status();
+				printf("***************\n\n");
+				break;
+			default:
+				printf("Invalid option.\n");
+				printf("***************\n\n");
+		
+		}
+	}
+	
+	return 0;
+	
+}
+
+void push1(int item){
+	if(top==size-1){
+		printf("Stack full.");
+	}else{
+		top++;
+		A[top]=item;
+	}
+}
+
+void pop(){
+	if(top==-1){
+		printf("Stack empty");
+	}else{
+		printf("Removed element is %d.\n",A[top]);
+		top--;
+	}
+}
+
+void display(){
+	if(top==-1){
+		printf("Stack empty.\n");
+	}else{
+		int j=0;
+		for(j=0;j<=top;j++)
+			printf("%d\n",A[j]);
+		
+	}
+	
+}
+void status(){
+	if(top==-1)
+		printf("Stack empty.\n");
+	else{
+		if(top==size-1)
+			printf("Stack full.\n");
+		else
+			printf("Number of free space is-%d\n",(size-top-1));
+		
+	}
+}
+	
+	
+*********************************************************************************************
+OUTPUT
+*********************************************************************************************
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 1
+Enter element: 0
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 1
+Enter element: 1
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 1
+Enter element: 2
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 1
+Enter element: 3
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 1
+Enter element: 4
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 1
+Enter element: 5
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 1
+Enter element: 6
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 2
+Removed element is 6.
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 2
+Removed element is 5.
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 2
+Removed element is 4.
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 3
+0
+1
+2
+3
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 4
+Number of free space is-6
+***************
+
+Enter:-
+1)Push,
+2)Pop,
+3)Display,
+4)Status,
+0)Exit: 0
+	
+
